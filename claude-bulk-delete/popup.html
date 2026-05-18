@@ -1,0 +1,177 @@
+<!-- ============================================================
+     FILE: popup.html
+     Claude Bulk Delete — Extension Popup
+     Dark purple theme matching the injected UI.
+     ============================================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Bulk Delete</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 260px;
+      background: #0d0a1a;
+      color: #e9d5ff;
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 20px 18px 22px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .icon {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #7c3aed, #4c1d95);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 12px rgba(124,58,237,0.45);
+    }
+
+    .name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #c4b5fd;
+      letter-spacing: 0.2px;
+    }
+
+    .version {
+      font-size: 11px;
+      color: #6d28d9;
+      margin-top: 1px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, #4c1d95 0%, transparent 100%);
+      margin-bottom: 14px;
+    }
+
+    .desc {
+      font-size: 12.5px;
+      color: #a78bfa;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .instruction-box {
+      background: #1a1030;
+      border: 1.5px solid #4c1d95;
+      border-radius: 8px;
+      padding: 11px 13px;
+      margin-bottom: 14px;
+    }
+
+    .instruction-box p {
+      font-size: 12px;
+      color: #c4b5fd;
+      line-height: 1.6;
+    }
+
+    .instruction-box strong {
+      color: #a78bfa;
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: steps;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      gap: 8px;
+      font-size: 11.5px;
+      color: #8b5cf6;
+      line-height: 1.5;
+    }
+
+    .steps li::before {
+      content: counter(steps);
+      background: #2d1b69;
+      color: #a78bfa;
+      border-radius: 50%;
+      min-width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .footer {
+      border-top: 1px solid #1e1040;
+      padding-top: 10px;
+      font-size: 10.5px;
+      color: #4c1d95;
+      text-align: center;
+    }
+
+    a {
+      color: #7c3aed;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #a78bfa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="icon">☑</div>
+    <div>
+      <div class="name">Claude Bulk Delete</div>
+      <div class="version">v1.0.0</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="desc">
+    Bulk-select and delete multiple Claude conversations at once from the sidebar.
+  </p>
+
+  <div class="instruction-box">
+    <p>Navigate to <strong>claude.ai</strong> and click the <strong>☑ Bulk Select</strong> button at the bottom-right corner of the page to begin.</p>
+  </div>
+
+  <ol class="steps">
+    <li>Go to <strong style="color:#a78bfa">claude.ai</strong></li>
+    <li>Click <strong style="color:#a78bfa">☑ Bulk Select</strong> (bottom-right)</li>
+    <li>Check the conversations to delete</li>
+    <li>Click <strong style="color:#a78bfa">🗑 Delete N</strong> and confirm</li>
+    <li>Page reloads automatically when done</li>
+  </ol>
+
+  <div style="height: 14px;"></div>
+
+  <div class="footer">
+    Active on claude.ai only &nbsp;·&nbsp; Manifest V3
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+/* ============================================================
+   FILE: styles.css
+   Claude Bulk Delete — Dark Purple Theme
+   Accent: #7c3aed  |  BG: #0d0a1a  |  Highlight: #a78bfa
+   ============================================================ */
+
+/* ─────────────────────────────────────────────────────────────
+   TOGGLE BUTTON
+   Fixed bottom-right so it never overlaps page content.
+   z-index max so it floats above claude.ai's own overlays.
+───────────────────────────────────────────────────────────── */
+#cbd-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 14px;
+  z-index: 2147483647;
+
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #4c1d95;
+  background: #0d0a1a;
+  color: #a78bfa;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.35), 0 1px 4px rgba(0,0,0,0.5);
+  transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.12s, box-shadow 0.18s;
+  user-select: none;
+}
+
+#cbd-toggle:hover {
+  background: #1e1040;
+  color: #c4b5fd;
+  border-color: #7c3aed;
+  box-shadow: 0 6px 32px rgba(124, 58, 237, 0.55);
+  transform: translateY(-1px);
+}
+
+#cbd-toggle.cbd-active {
+  background: #7c3aed;
+  color: #fff;
+  border-color: #a78bfa;
+  box-shadow: 0 6px 32px rgba(124, 58, 237, 0.7);
+}
+
+#cbd-toggle.cbd-active:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TOOLBAR
+   Appears above the toggle button, slides up with animation.
+───────────────────────────────────────────────────────────── */
+#cbd-toolbar {
+  position: fixed;
+  bottom: 68px;      /* sits above the toggle button (20px + ~38px btn + 10px gap) */
+  right: 14px;
+  z-index: 2147483647;
+
+  background: #0d0a1a;
+  border: 1.5px solid #4c1d95;
+  border-radius: 12px;
+  padding: 12px 14px 10px;
+  min-width: 200px;
+  box-shadow: 0 8px 40px rgba(124, 58, 237, 0.4), 0 2px 8px rgba(0,0,0,0.6);
+  font-family: system-ui, -apple-system, sans-serif;
+
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+#cbd-toolbar.cbd-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  animation: cbd-slide-up 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cbd-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Count label */
+.cbd-count {
+  display: block;
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  margin-bottom: 9px;
+  text-align: center;
+}
+
+/* Button row inside toolbar */
+.cbd-btn-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base button style */
+.cbd-btn {
+  padding: 6px 10px;
+  border-radius: 7px;
+  border: 1.5px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Secondary buttons: All, Clear */
+.cbd-btn-secondary {
+  background: #1a1030;
+  color: #c4b5fd;
+  border-color: #4c1d95;
+}
+
+.cbd-btn-secondary:hover {
+  background: #2d1b69;
+  color: #ede9fe;
+  border-color: #7c3aed;
+}
+
+/* Danger button: Delete */
+.cbd-btn-danger {
+  background: #7c3aed;
+  color: #fff;
+  border-color: #a78bfa;
+  flex-grow: 1;
+}
+
+.cbd-btn-danger:hover:not(:disabled) {
+  background: #6d28d9;
+  border-color: #c4b5fd;
+}
+
+.cbd-btn-danger:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CHECKBOX COLUMN
+   Injected as the firstChild of each row wrapper.
+   Hidden until bulk mode is active (JS sets display:flex).
+───────────────────────────────────────────────────────────── */
+.cbd-check-col {
+  display: none;           /* JS sets to flex when bulk mode activates */
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-right: 4px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2147483647;
+}
+
+/* ── HIDDEN REAL CHECKBOX ──────────────────────────────────
+   The actual <input type="checkbox"> is invisible.
+   We drive visuals entirely through CSS on the .cbd-mark span.
+   opacity:0 keeps it accessible for screen readers;
+   width/height:0 removes its layout footprint;
+   position:absolute pulls it out of flex flow.
+───────────────────────────────────────────────────────────── */
+.cbd-cb {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ── VISUAL CHECKBOX ───────────────────────────────────────
+   .cbd-mark is the visible element. Styled as a bordered square.
+───────────────────────────────────────────────────────────── */
+.cbd-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  border: 2px solid #4c1d95;
+  background: #1a1030;
+  flex-shrink: 0;
+  transition: background 0.14s, border-color 0.14s;
+  position: relative;
+}
+
+.cbd-mark::after {
+  content: '';
+  display: none;
+  width: 5px;
+  height: 9px;
+  border-right: 2.5px solid #fff;
+  border-bottom: 2.5px solid #fff;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+/* ── SIBLING SELECTOR: checked state ──────────────────────
+   When the hidden <input> is checked, style the adjacent .cbd-mark.
+   This is pure CSS — no JS needed to toggle visual checkbox state.
+───────────────────────────────────────────────────────────── */
+.cbd-cb:checked ~ .cbd-mark {
+  background: #7c3aed;
+  border-color: #a78bfa;
+}
+
+.cbd-cb:checked ~ .cbd-mark::after {
+  display: block;
+}
+
+/* Hover on the label lights up the mark */
+.cbd-check-col:hover .cbd-mark {
+  border-color: #7c3aed;
+  background: #2d1b69;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SELECTED ROW HIGHLIGHT
+   Applied to the <li> when a conversation is selected.
+───────────────────────────────────────────────────────────── */
+li.cbd-selected {
+  background: rgba(139, 92, 246, 0.12) !important;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TOAST NOTIFICATIONS
+───────────────────────────────────────────────────────────── */
+.cbd-toast {
+  position: fixed;
+  bottom: 120px;
+  right: 14px;
+  z-index: 2147483647;
+  max-width: 320px;
+
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+  border: 1.5px solid transparent;
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.cbd-toast.cbd-toast-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cbd-toast-success {
+  background: #0d1f14;
+  border-color: #22c55e;
+  color: #86efac;
+}
+
+.cbd-toast-error {
+  background: #1f0d0d;
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.cbd-toast-warn {
+  background: #1f180d;
+  border-color: #f59e0b;
+  color: #fcd34d;
+}
