@@ -53,6 +53,24 @@ function validatePhoneNumber(phone) {
 }
 
 /**
+ * Validates password strength.
+ * Requirements: minimum 10 characters, at least one uppercase letter,
+ * one lowercase letter, one digit, and one special character.
+ *
+ * @param {string} password
+ * @returns {boolean}
+ */
+function validatePasswordStrength(password) {
+  if (!password || typeof password !== 'string') return false;
+  if (password.length < 10) return false;
+  if (!/[A-Z]/.test(password)) return false;
+  if (!/[a-z]/.test(password)) return false;
+  if (!/[0-9]/.test(password)) return false;
+  if (!/[^A-Za-z0-9]/.test(password)) return false;
+  return true;
+}
+
+/**
  * Sanitizes a string by trimming whitespace and removing control characters.
  *
  * @param {string} input
@@ -66,6 +84,7 @@ function sanitizeString(input) {
 module.exports = {
   validateEmail,
   validatePassword,
+  validatePasswordStrength,
   validateUUID,
   validatePhoneNumber,
   sanitizeString
