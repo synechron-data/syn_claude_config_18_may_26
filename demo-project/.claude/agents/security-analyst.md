@@ -1,6 +1,6 @@
 ---
 name: security-analyst
-description: "Use this agent for security reviews: authentication bypass, injection vulnerabilities, OWASP Top 10, token handling, and input validation. Invoke with: ask the security-analyst to audit this file."
+description: Use this agent for security reviews: authentication bypass, injection vulnerabilities, OWASP Top 10, token handling, and input validation. Invoke with: ask the security-analyst to audit this file.
 tools: Read, Bash(npm audit), Bash(grep *)
 model: sonnet
 ---
