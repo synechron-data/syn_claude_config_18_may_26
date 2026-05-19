@@ -40,6 +40,19 @@ function validateUUID(id) {
 }
 
 /**
+ * Validates a phone number in E.164 format or common national formats.
+ * Accepts optional leading +, country code, and 7–15 digits (per ITU-T E.164).
+ *
+ * @param {string} phone
+ * @returns {boolean}
+ */
+function validatePhoneNumber(phone) {
+  if (!phone || typeof phone !== 'string') return false;
+  const phoneRegex = /^\+?[1-9]\d{6,14}$/;
+  return phoneRegex.test(phone.trim().replace(/[\s\-().]/g, ''));
+}
+
+/**
  * Sanitizes a string by trimming whitespace and removing control characters.
  *
  * @param {string} input
@@ -54,5 +67,6 @@ module.exports = {
   validateEmail,
   validatePassword,
   validateUUID,
+  validatePhoneNumber,
   sanitizeString
 };
