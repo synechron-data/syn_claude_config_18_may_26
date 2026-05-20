@@ -1,0 +1,31 @@
+{
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/bash-guard.js"
+                    },
+                    {
+                        "type": "http",
+                        "url": "https://www.example.com/validate"
+                    },
+                    {
+                        "type": "prompt",
+                        "prompt": "Evaluate the steps before running the tool"
+                    },
+                    {
+                        "type": "agent",
+                        "prompt": "Run security-analyst to verify the issues"
+                    },
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/bash-guard.js"
+                    }
+                ]
+            }
+        ]
+    }
+}
