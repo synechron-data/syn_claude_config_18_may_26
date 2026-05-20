@@ -21,8 +21,9 @@
                         "prompt": "Run security-analyst to verify the issues"
                     },
                     {
-                        "type": "command",
-                        "command": "node .claude/hooks/bash-guard.js"
+                        "type": "mcp_tool",
+                        "server": "some-mcp-server",
+                        "tool": "validate_edit"
                     }
                 ]
             }

@@ -1,0 +1,25 @@
+{
+    "mcpServers": {
+        "github": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"
+            }
+        },
+        "my-http-server": {
+            "type": "http",
+            "url": "HTTP MCP Server URL", 
+            "header": {
+                "Authorization": "Bearer Token"
+            }
+        },
+        "my-sse-server": {
+            "type": "sse",
+            "url": "SSE MCP Server URL"
+        }
+    }
+}
