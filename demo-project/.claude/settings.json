@@ -1,4 +1,7 @@
 {
+    "env": {
+        "SLACK_WEBHOOK_URL": "YOUR WEBHOOK URL"
+    },
     "model": "sonnet",
     "permissions": {
         "allow": [
@@ -23,6 +26,50 @@
             "Bash(rm -rf:*)",
             "Bash(curl:*)",
             "Bash(wget:*)"
+        ]
+    },
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/bash-guard.js"
+                    }
+                ]
+            }
+        ],
+        "PostToolUse": [
+            {
+                "matcher": "Write | Edit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/eslint-fix.js"
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/session-log.js"
+                    }
+                ]
+            }
+        ],
+        "Notification": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/slack-notify.js"
+                    }
+                ]
+            }
         ]
     }
 }
