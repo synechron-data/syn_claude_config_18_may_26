@@ -1,6 +1,7 @@
 {
     "env": {
-        "SLACK_WEBHOOK_URL": "YOUR WEBHOOK URL"
+        "SLACK_WEBHOOK_URL": "YOUR WEBHOOK URL",
+        "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
     },
     "model": "sonnet",
     "permissions": {
